@@ -21,7 +21,7 @@
       },
       "peerDependencies": {
         "@vibecontrols/agent": ">=2026.428.0",
-        "@vibecontrols/vibe-plugin-storage": "2026.429.4",
+        "@vibecontrols/vibe-plugin-storage": "^2026.429.4",
       },
       "optionalPeers": [
         "@vibecontrols/agent",
@@ -85,7 +85,7 @@
 
     "@typescript-eslint/visitor-keys": ["@typescript-eslint/visitor-keys@8.59.1", "", { "dependencies": { "@typescript-eslint/types": "8.59.1", "eslint-visitor-keys": "^5.0.0" } }, "sha512-LdDNl6C5iJExcM0Yh0PwAIBb9PrSiCsWamF/JyEZawm3kFDnRoaq3LGE4bpyRao/fWeGKKyw7icx0YxrLFC5Cg=="],
 
-    "@vibecontrols/vibe-plugin-storage": ["@vibecontrols/vibe-plugin-storage@2026.428.3", "", { "peerDependencies": { "@vibecontrols/agent": ">=2026.428.0" }, "optionalPeers": ["@vibecontrols/agent"] }, "sha512-fWUktVKRjwqHsM1ztapqJxqgbBU56zNgOBtHG3hrB1fskrdOAa1E160SQOARxG+Bn2r9Lid7ifueVM1xB443mQ=="],
+    "@vibecontrols/vibe-plugin-storage": ["@vibecontrols/vibe-plugin-storage@2026.429.4", "", { "peerDependencies": { "@vibecontrols/agent": ">=2026.428.0" }, "optionalPeers": ["@vibecontrols/agent"] }, "sha512-AaVnii03MzDbakEqihSHvbdHXw5G9unQgPO7iW2E2h2trGkRU0iZWtqqzusVIj8H7sI+X743Apazy09xoD3JVA=="],
 
     "acorn": ["acorn@8.16.0", "", { "bin": { "acorn": "bin/acorn" } }, "sha512-UVJyE9MttOsBQIDKw1skb9nAwQuR5wuGD3+82K6JgJlm/Y+KI92oNsMNGZCYdDsVtRHSak0pcV5Dno5+4jh9sw=="],
 

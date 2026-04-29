@@ -1,6 +1,6 @@
 {
   "name": "@vibecontrols/vibe-plugin-storage-postgres",
-  "version": "2026.429.1",
+  "version": "2026.429.3",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -15,7 +15,7 @@
   },
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
-    "build": "tsc",
+    "build": "bun build ./src/index.ts --outdir ./dist --target bun --minify-syntax --minify-whitespace --external elysia && tsc --emitDeclarationOnly --declaration --outDir ./dist",
     "dev": "tsc --watch",
     "lint": "eslint ./src",
     "format": "bunx prettier . --write",
@@ -43,7 +43,7 @@
     "typescript-eslint": "^8.56.0"
   },
   "peerDependencies": {
-    "@vibecontrols/vibe-plugin-storage": "2026.429.4",
+    "@vibecontrols/vibe-plugin-storage": "^2026.429.4",
     "@vibecontrols/agent": ">=2026.428.0"
   },
   "peerDependenciesMeta": {
@@ -52,6 +52,7 @@
     }
   },
   "files": [
+    "!dist/**/*.map",
     "dist",
     "README.md",
     "LICENSE"
