@@ -1,0 +1,77 @@
+{
+  "name": "@vibecontrols/vibe-plugin-storage-postgres",
+  "version": "2026.429.1",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "description": "PostgreSQL storage provider for the VibeControls agent — full-parity adapter with AES-256-GCM encryption at rest.",
+  "engines": {
+    "bun": ">=1.3.0"
+  },
+  "author": {
+    "name": "Vignesh T.V",
+    "email": "vignesh@burdenoff.com",
+    "url": "https://github.com/tvvignesh"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint ./src",
+    "format": "bunx prettier . --write",
+    "format:check": "bunx prettier . --check",
+    "type:check": "tsc --noEmit",
+    "test": "bun test tests/**/*.test.ts",
+    "clean": "rimraf dist",
+    "prebuild": "bun run clean",
+    "prepublishOnly": "bun run build",
+    "sanity": "bun run format:check && bun run lint && bun run type:check && bun run test && bun run build"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.11.10",
+    "bun-types": "^1.3.9",
+    "eslint": "^9.30.1",
+    "globals": "^17.3.0",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.0"
+  },
+  "peerDependencies": {
+    "@vibecontrols/vibe-plugin-storage": "2026.429.4",
+    "@vibecontrols/agent": ">=2026.428.0"
+  },
+  "peerDependenciesMeta": {
+    "@vibecontrols/agent": {
+      "optional": true
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "keywords": [
+    "vibecontrols",
+    "vibecontrols-agent",
+    "vibe-plugin",
+    "storage",
+    "postgres",
+    "postgresql",
+    "encryption"
+  ],
+  "homepage": "https://github.com/Algoshred/vibe-plugin-storage-postgres",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Algoshred/vibe-plugin-storage-postgres"
+  }
+}
