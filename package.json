@@ -4,7 +4,7 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "description": "PostgreSQL storage provider for the VibeControls agent — full-parity adapter with AES-256-GCM encryption at rest.",
+  "description": "PostgreSQL storage provider for the VibeControls agent \u2014 full-parity adapter with AES-256-GCM encryption at rest.",
   "engines": {
     "bun": ">=1.3.0"
   },
