@@ -26,7 +26,18 @@ import "./postgres.adapter.js";
 
 export { createPostgresAgentDatabase } from "./postgres.adapter.js";
 
+interface PluginCapabilities {
+  storage?: "none" | "read" | "rw";
+  secrets?: "none" | "read" | "rw";
+  gateway?: boolean;
+  broadcast?: boolean;
+  subprocess?: boolean;
+  audit?: boolean;
+  telemetry?: boolean;
+}
+
 interface MinimalVibePlugin {
+  capabilities?: PluginCapabilities;
   name: string;
   version: string;
   description?: string;
@@ -41,6 +52,10 @@ interface MinimalVibePlugin {
 }
 
 export const vibePlugin: MinimalVibePlugin = {
+  capabilities: {
+    storage: "rw",
+    secrets: "read",
+  },
   name: "storage-postgres",
   version: "2026.429.1",
   description:
