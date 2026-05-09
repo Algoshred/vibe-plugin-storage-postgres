@@ -22,43 +22,85 @@
  * documents`). No manual migrations needed.
  */
 
+import {
+  type HostServices,
+  type ProfileContext,
+  type VibePlugin,
+  type VibePluginFactory,
+} from "@vibecontrols/plugin-sdk/contract";
+import { createLifecycleHooks } from "@vibecontrols/plugin-sdk/lifecycle";
+import { BoundLogger } from "@vibecontrols/plugin-sdk/log";
+import { ProviderRegistry } from "@vibecontrols/plugin-sdk/providers";
+import { TelemetryEmitter } from "@vibecontrols/plugin-sdk/telemetry";
+
+// Side-effect: register the "postgres" adapter on import (with the
+// `vibe-plugin-storage` peer-dep adapter registry).
 import "./postgres.adapter.js";
+
+import { createPostgresAgentDatabase } from "./postgres.adapter.js";
 
 export { createPostgresAgentDatabase } from "./postgres.adapter.js";
 
-interface PluginCapabilities {
-  storage?: "none" | "read" | "rw";
-  secrets?: "none" | "read" | "rw";
-  gateway?: boolean;
-  broadcast?: boolean;
-  subprocess?: boolean;
-  audit?: boolean;
-  telemetry?: boolean;
-}
+const PLUGIN_NAME = "storage-postgres";
+const PLUGIN_VERSION = "2026.509.2";
 
-interface MinimalVibePlugin {
-  capabilities?: PluginCapabilities;
-  name: string;
-  version: string;
-  description?: string;
-  tags?: (
-    | "backend"
-    | "frontend"
-    | "cli"
-    | "provider"
-    | "adapter"
-    | "integration"
-  )[];
-}
+export const createPlugin: VibePluginFactory = (
+  ctx: ProfileContext,
+): VibePlugin => {
+  const log = new BoundLogger(ctx.logger, PLUGIN_NAME);
+  const lifecycle = createLifecycleHooks({
+    name: PLUGIN_NAME,
+    telemetryEventName: "storage-postgres.ready",
+    onInit: (hostServices: HostServices) => {
+      const providers = new ProviderRegistry(hostServices);
+      providers.registerProvider(
+        "storage",
+        "postgres",
+        createPostgresAgentDatabase,
+      );
+      const telemetry = new TelemetryEmitter(
+        PLUGIN_NAME,
+        PLUGIN_VERSION,
+        hostServices,
+      );
+      telemetry.emit("storage-postgres.registered", { adapter: "postgres" });
+      log.info(
+        "postgres storage adapter registered with host ProviderRegistry",
+      );
+    },
+  });
 
-export const vibePlugin: MinimalVibePlugin = {
+  return {
+    name: PLUGIN_NAME,
+    version: PLUGIN_VERSION,
+    description:
+      "PostgreSQL encrypted storage adapter (registers via side-effect import).",
+    tags: ["backend", "adapter", "provider"],
+    capabilities: {
+      storage: "rw",
+      secrets: "read",
+    },
+    onServerStart: lifecycle.onServerStart,
+    onServerStop: lifecycle.onServerStop,
+  };
+};
+
+/**
+ * Static manifest export — kept for the agent's defensive plugin loader
+ * that reads `vibePlugin` directly without invoking the factory.
+ * Lifecycle hooks here are no-ops; real registration happens via the
+ * factory above.
+ */
+export const vibePlugin: VibePlugin = {
+  name: PLUGIN_NAME,
+  version: PLUGIN_VERSION,
+  description:
+    "PostgreSQL encrypted storage adapter (registers via side-effect import).",
+  tags: ["backend", "adapter", "provider"],
   capabilities: {
     storage: "rw",
     secrets: "read",
   },
-  name: "storage-postgres",
-  version: "2026.429.1",
-  description:
-    "PostgreSQL encrypted storage adapter for the VibeControls agent (registers via side-effect import).",
-  tags: ["backend", "adapter", "provider"],
 };
+
+export default createPlugin;

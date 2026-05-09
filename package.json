@@ -1,10 +1,10 @@
 {
   "name": "@vibecontrols/vibe-plugin-storage-postgres",
-  "version": "2026.509.1",
+  "version": "2026.509.2",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "description": "PostgreSQL storage provider for the VibeControls agent \u2014 full-parity adapter with AES-256-GCM encryption at rest.",
+  "description": "PostgreSQL storage provider for the VibeControls agent — full-parity adapter with AES-256-GCM encryption at rest.",
   "engines": {
     "bun": ">=1.3.0"
   },
@@ -21,13 +21,14 @@
     "format": "bunx prettier . --write",
     "format:check": "bunx prettier . --check",
     "type:check": "tsc --noEmit",
-    "test": "bun test tests/**/*.test.ts",
+    "test": "bun test tests/",
     "clean": "rimraf dist",
     "prebuild": "bun run clean",
     "prepublishOnly": "bun run build",
     "sanity": "bun run format:check && bun run lint && bun run type:check && bun run test && bun run build"
   },
   "dependencies": {
+    "@vibecontrols/plugin-sdk": "2026.509.1",
     "pg": "^8.13.1"
   },
   "devDependencies": {
@@ -43,7 +44,7 @@
     "typescript-eslint": "^8.56.0"
   },
   "peerDependencies": {
-    "@vibecontrols/vibe-plugin-storage": "2026.509.1",
+    "@vibecontrols/vibe-plugin-storage": "2026.509.2",
     "@vibecontrols/agent": ">=2026.428.0"
   },
   "peerDependenciesMeta": {

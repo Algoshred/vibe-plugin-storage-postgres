@@ -5,6 +5,7 @@
     "": {
       "name": "@vibecontrols/vibe-plugin-storage-postgres",
       "dependencies": {
+        "@vibecontrols/plugin-sdk": "2026.509.1",
         "pg": "^8.13.1",
       },
       "devDependencies": {
@@ -84,6 +85,8 @@
     "@typescript-eslint/utils": ["@typescript-eslint/utils@8.59.1", "", { "dependencies": { "@eslint-community/eslint-utils": "^4.9.1", "@typescript-eslint/scope-manager": "8.59.1", "@typescript-eslint/types": "8.59.1", "@typescript-eslint/typescript-estree": "8.59.1" }, "peerDependencies": { "eslint": "^8.57.0 || ^9.0.0 || ^10.0.0", "typescript": ">=4.8.4 <6.1.0" } }, "sha512-3pIeoXhCeYH9FSCBI8P3iNwJlGuzPlYKkTlen2O9T1DSeeg8UG8jstq6BLk+Mda0qup7mgk4z4XL4OzRaxZ8LA=="],
 
     "@typescript-eslint/visitor-keys": ["@typescript-eslint/visitor-keys@8.59.1", "", { "dependencies": { "@typescript-eslint/types": "8.59.1", "eslint-visitor-keys": "^5.0.0" } }, "sha512-LdDNl6C5iJExcM0Yh0PwAIBb9PrSiCsWamF/JyEZawm3kFDnRoaq3LGE4bpyRao/fWeGKKyw7icx0YxrLFC5Cg=="],
+
+    "@vibecontrols/plugin-sdk": ["@vibecontrols/plugin-sdk@2026.509.1", "", { "peerDependencies": { "commander": ">=14.0.0", "elysia": ">=1.3.0" }, "optionalPeers": ["commander", "elysia"] }, "sha512-dfomAKlbHsOUbQHJsLTeH91jsthvmkWcThnYb4BCY8wzP6jp15lsTTOMaJvvOu5L2AC/EiuzE6Xf5DjhzMlNMA=="],
 
     "@vibecontrols/vibe-plugin-storage": ["@vibecontrols/vibe-plugin-storage@2026.429.4", "", { "peerDependencies": { "@vibecontrols/agent": ">=2026.428.0" }, "optionalPeers": ["@vibecontrols/agent"] }, "sha512-AaVnii03MzDbakEqihSHvbdHXw5G9unQgPO7iW2E2h2trGkRU0iZWtqqzusVIj8H7sI+X743Apazy09xoD3JVA=="],
 
