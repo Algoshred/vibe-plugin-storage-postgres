@@ -42,7 +42,7 @@ import { createPostgresAgentDatabase } from "./postgres.adapter.js";
 export { createPostgresAgentDatabase } from "./postgres.adapter.js";
 
 const PLUGIN_NAME = "storage-postgres";
-const PLUGIN_VERSION = "2026.509.2";
+const PLUGIN_VERSION = "2026.509.4";
 
 export const createPlugin: VibePluginFactory = (
   ctx: ProfileContext,
@@ -83,24 +83,6 @@ export const createPlugin: VibePluginFactory = (
     onServerStart: lifecycle.onServerStart,
     onServerStop: lifecycle.onServerStop,
   };
-};
-
-/**
- * Static manifest export — kept for the agent's defensive plugin loader
- * that reads `vibePlugin` directly without invoking the factory.
- * Lifecycle hooks here are no-ops; real registration happens via the
- * factory above.
- */
-export const vibePlugin: VibePlugin = {
-  name: PLUGIN_NAME,
-  version: PLUGIN_VERSION,
-  description:
-    "PostgreSQL encrypted storage adapter (registers via side-effect import).",
-  tags: ["backend", "adapter", "provider"],
-  capabilities: {
-    storage: "rw",
-    secrets: "read",
-  },
 };
 
 export default createPlugin;
