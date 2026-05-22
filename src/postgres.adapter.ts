@@ -246,6 +246,22 @@ class PostgresAgentDatabase extends AgentDatabase {
     return this.connStr;
   }
 
+  /**
+   * Snapshot via `pg_dump --format=custom`. Requires `pg_dump` on PATH
+   * (Bun container images ship it). Restore = `pg_restore --clean`.
+   */
+  async backup(targetPath: string): Promise<void> {
+    const proc = Bun.spawn(
+      ["pg_dump", "--format=custom", "--file", targetPath, this.connStr],
+      { stdout: "pipe", stderr: "pipe" },
+    );
+    const exitCode = await proc.exited;
+    if (exitCode !== 0) {
+      const err = await new Response(proc.stderr).text();
+      throw new Error(`Postgres backup failed (exit ${exitCode}): ${err}`);
+    }
+  }
+
   // ── Tasks ───────────────────────────────────────────────────────────────
 
   async createTask(task: Omit<Task, "createdAt" | "updatedAt">): Promise<Task> {
