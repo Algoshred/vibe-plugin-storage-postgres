@@ -10,10 +10,9 @@
   },
   "author": {
     "name": "Vignesh T.V",
-    "email": "vignesh@burdenoff.com",
     "url": "https://github.com/tvvignesh"
   },
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "scripts": {
     "build": "bun build ./src/index.ts --outdir ./dist --target bun --minify-syntax --minify-whitespace --external elysia && tsc --emitDeclarationOnly --declaration --outDir ./dist",
     "dev": "tsc --watch",
@@ -74,6 +73,9 @@
   "homepage": "https://github.com/Algoshred/vibe-plugin-storage-postgres",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Algoshred/vibe-plugin-storage-postgres"
+    "url": "git+https://github.com/algoshred/vibe-plugin-storage-postgres.git"
+  },
+  "bugs": {
+    "url": "https://github.com/algoshred/vibe-plugin-storage-postgres/issues"
   }
 }

@@ -100,11 +100,11 @@ jobs:
 
       - name: Publish to Verdaccio (private)
         run: |
-          VERDACCIO_URL="https://verdaccio.tooling.internal.burdenoff.com/"
+          VERDACCIO_URL="https://registry.npmjs.org/"
           AUTH=$(echo -n "ci-publisher:${{ secrets.VERDACCIO_CI_PASSWORD }}" | base64)
           cat > .npmrc << NPMRC
           registry=${VERDACCIO_URL}
-          //verdaccio.tooling.internal.burdenoff.com/:_auth=${AUTH}
+          //registry.npmjs.org/:_auth=${AUTH}
           NPMRC
           sed -i 's/^ *//' .npmrc
           bunx npm@latest publish --registry "${VERDACCIO_URL}" --tag latest --access restricted --ignore-scripts
@@ -112,7 +112,7 @@ jobs:
       - name: Create git tag (if manual dispatch)
         if: github.event_name == 'workflow_dispatch'
         run: |
-          git config --local user.email "ci@burdenoff.com"
+          git config --local user.email "oss@vibecontrols.com"
           git config --local user.name "CI"
           git tag "${{ steps.version.outputs.version }}" -m "Release ${{ steps.version.outputs.name }}@${{ steps.version.outputs.version }}"
           git push origin "${{ steps.version.outputs.version }}"
