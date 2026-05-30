@@ -29,6 +29,7 @@
  */
 
 import { createCipheriv, createDecipheriv, randomBytes } from "node:crypto";
+import { dirname, sep } from "node:path";
 
 import {
   AgentDatabase,
@@ -251,8 +252,16 @@ class PostgresAgentDatabase extends AgentDatabase {
    * (Bun container images ship it). Restore = `pg_restore --clean`.
    */
   async backup(targetPath: string): Promise<void> {
+    const pgDump = Bun.which("pg_dump", { PATH: process.env.PATH });
+    if (pgDump === null) {
+      throw new Error(
+        "Postgres backup failed: PostgreSQL client tools not found on PATH " +
+          "(could not locate `pg_dump`). Install the PostgreSQL client tools " +
+          "and ensure `pg_dump` is on PATH.",
+      );
+    }
     const proc = Bun.spawn(
-      ["pg_dump", "--format=custom", "--file", targetPath, this.connStr],
+      [pgDump, "--format=custom", "--file", targetPath, this.connStr],
       { stdout: "pipe", stderr: "pipe" },
     );
     const exitCode = await proc.exited;
@@ -415,14 +424,23 @@ class PostgresAgentDatabase extends AgentDatabase {
     const byPath = new Map(all.map((r) => [r.path, r] as const));
     let fixed = 0;
     for (const repo of all) {
-      const segments = repo.path.split("/").filter(Boolean);
+      // `repo.path` is a real filesystem path (populated from on-disk git
+      // scans). Walk its ancestor directories nearest-first and pick the
+      // closest one that is itself a tracked repo. Using `node:path` keeps
+      // this correct on Windows (backslash separators) while remaining
+      // byte-for-byte identical to the previous "/"-split logic on POSIX.
       let parent: string | undefined;
-      for (let i = segments.length - 1; i > 0; i--) {
-        const candidate = "/" + segments.slice(0, i).join("/");
+      let current = repo.path;
+      for (;;) {
+        const candidate = dirname(current);
+        if (candidate === current || candidate === sep || candidate === ".") {
+          break;
+        }
         if (byPath.has(candidate) && candidate !== repo.path) {
           parent = candidate;
           break;
         }
+        current = candidate;
       }
       if (parent !== repo.parentPath) {
         await this.updateGitRepository(repo.id, { parentPath: parent });
