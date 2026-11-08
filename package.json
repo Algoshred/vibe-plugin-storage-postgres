@@ -73,9 +73,9 @@
   "homepage": "https://github.com/Algoshred/vibe-plugin-storage-postgres",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/algoshred/vibe-plugin-storage-postgres.git"
+    "url": "git+https://github.com/Algoshred/vibe-plugin-storage-postgres.git"
   },
   "bugs": {
-    "url": "https://github.com/algoshred/vibe-plugin-storage-postgres/issues"
+    "url": "https://github.com/Algoshred/vibe-plugin-storage-postgres/issues"
   }
 }
