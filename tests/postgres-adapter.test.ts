@@ -11,6 +11,7 @@
  */
 
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
+import { Pool } from "pg";
 import { createPostgresAgentDatabase } from "../src/postgres.adapter.js";
 import type { AgentDatabase, Task } from "@vibecontrols/vibe-plugin-storage";
 
@@ -67,7 +68,7 @@ maybeDescribe("PostgresAgentDatabase parity", () => {
     expect(t1.updatedAt).toBeTruthy();
     expect(await db.getTask("t-1")).toEqual(t1);
 
-    const t2 = await db.createTask({
+    await db.createTask({
       id: "t-2",
       type: "script",
       status: "running",
@@ -185,8 +186,6 @@ maybeDescribe("PostgresAgentDatabase parity", () => {
   test("encryption at rest: ciphertext column does NOT contain plaintext", async () => {
     await db.setConfig("secret-marker", "PLAINTEXT_SHOULD_NOT_APPEAR_42");
     // Read raw bytes from the DB and confirm the plaintext doesn't appear.
-    const pgModule = await import("pg");
-    const Pool = (pgModule as any).Pool ?? (pgModule as any).default.Pool;
     const pool = new Pool({ connectionString: TEST_URL! });
     const r = await pool.query(
       `SELECT ciphertext FROM documents WHERE collection = 'config' AND id = 'secret-marker'`,

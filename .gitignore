@@ -3,3 +3,7 @@ dist/
 *.log
 .DS_Store
 .env
+coverage/
+junit.xml
+sanity.log
+.eslintcache
