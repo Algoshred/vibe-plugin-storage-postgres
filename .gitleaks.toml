@@ -4,7 +4,8 @@
 [extend]
 useDefault = true
 
-[[allowlists]]
+[allowlist]
 description = "Sequential hex AES-256 test fixture key in tests/postgres-adapter.test.ts"
-paths = ['''tests/postgres-adapter\.test\.ts''']
-regexes = ['''0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef''']
+regexes = [
+  '''0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef''',
+]
