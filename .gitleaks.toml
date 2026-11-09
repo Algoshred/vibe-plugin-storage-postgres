@@ -1,0 +1,10 @@
+# gitleaks configuration (read by the vendored common-security-scan workflow).
+# Default rules stay on. The only allowance is the sequential hex AES-256 key
+# used as a fixture in the adapter tests; it is not a credential.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Sequential hex AES-256 test fixture key in tests/postgres-adapter.test.ts"
+paths = ['''tests/postgres-adapter\.test\.ts''']
+regexes = ['''0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef''']

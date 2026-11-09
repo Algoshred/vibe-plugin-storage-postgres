@@ -1,2 +1,0 @@
-# Test fixture: sequential hex AES-256 key used only by tests/postgres-adapter.test.ts (not a credential). BOFF-10675
-50c5253d27f1c8ce7f3261a6752da7c40b5bdd60:tests/postgres-adapter.test.ts:generic-api-key:18
